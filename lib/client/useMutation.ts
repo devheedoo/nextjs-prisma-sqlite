@@ -12,7 +12,7 @@ export default function useMutation<T = any>(
   url: string
 ): UseMutationResult<T> {
   const [state, setState] = useState<UseMutationState<T>>({
-    loading: true,
+    loading: false,
     data: undefined,
     error: undefined,
   });
