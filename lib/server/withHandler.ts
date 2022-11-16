@@ -9,7 +9,7 @@ type Method = "GET" | "POST" | "PUT" | "PATCH" | "HEAD" | "DELETE";
 
 interface IHandlerConfig {
   methods: Method[];
-  isPrivate: boolean;
+  isPrivate?: boolean;
   handler: NextApiHandler;
 }
 
