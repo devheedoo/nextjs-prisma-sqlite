@@ -5,18 +5,26 @@ import withApiSession from "@lib/server/withSession";
 import withHandler from "@lib/server/withHandler";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.session.user?.id === undefined) {
+    return res.json({ ok: false });
+  }
   const user: User | null = await db.user.findUnique({
     where: {
       id: req.session.user?.id,
     },
   });
 
-  return res.status(200).json({ ok: true, user });
+  if (user !== null) {
+    return res.json({ ok: true, user });
+  } else {
+    return res.json({ ok: false });
+  }
 }
 
 export default withApiSession(
   withHandler({
     methods: ["GET"],
+    isPrivate: false,
     handler,
   })
 );
